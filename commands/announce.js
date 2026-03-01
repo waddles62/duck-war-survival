@@ -1,6 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ChannelType } = require('discord.js');
 const { announcementText } = require('../embeds');
-const { addAnnouncementToSchedule } = require('../scheduleHelper');
 const db = require('../db');
 
 module.exports = {
@@ -85,7 +84,6 @@ module.exports = {
       });
 
       // Add to event schedule
-      addAnnouncementToSchedule(interaction.guildId, { title, type, scheduledAt });
 
       const when       = new Date(scheduledAt).toUTCString();
       const mentionNote = mentionStr ? ` · will ping **${mentionStr}**` : '';
