@@ -1,6 +1,5 @@
 const {
   SlashCommandBuilder,
-  
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
@@ -9,16 +8,17 @@ const { divider } = require('../embeds');
 
 const PAGES = [
   {
-    title: '📋  Duck War Survivals — Overview',
+    title: '📋  Duck War Survival — Overview',
     description: 'Use the buttons below to browse commands by category.',
     fields: [
       { name: '📊  Stats & Roster',   value: 'View your stats, leaderboard and roster',        inline: true },
-      { name: '📅  Event Guides',      value: 'Alliance Duel & Survival Prep schedules',        inline: true },
       { name: '⚔️  War & Rallies',     value: 'War status and rally call info',                 inline: true },
-      { name: '📢  Announcements',     value: 'View pinned alliance announcements',              inline: true },
+      { name: '🗓️  Schedule',          value: 'View the alliance event schedule',               inline: true },
+      { name: '🤝  Diplomacy',          value: 'View alliance allies and NAPs',                  inline: true },
+      { name: '📢  Announcements',     value: 'Alliance announcements and alerts',              inline: true },
       { name: '❓  Help',              value: 'This menu',                                       inline: true },
     ],
-    footer: 'Page 1 of 5  ·  ⚔️ Duck War Survival',
+    footer: 'Page 1 of 4  ·  ⚔️ Duck War Survival',
   },
   {
     title: '📊  Stats & Roster Commands',
@@ -33,24 +33,10 @@ const PAGES = [
       },
       {
         name: '/roster list',
-        value: 'View the full alliance roster. Filter by rank.\n`/roster list` or `/roster list filter:R3`',
+        value: 'View the full alliance roster grouped by rank.\n`/roster list` or `/roster list filter:Member`',
       },
     ],
-    footer: 'Page 2 of 5  ·  ☠ Stats & Roster',
-  },
-  {
-    title: '📅  Event Guide Commands',
-    fields: [
-      {
-        name: '/allianceduel',
-        value: 'Interactive 6-day Alliance Duel schedule with task points and tips for each day.\n`/allianceduel` or jump to a day: `/allianceduel day:3`',
-      },
-      {
-        name: '/survivalprep',
-        value: 'Full Survival Preparedness weekly event guide — all sub-events with points and tips.\n`/survivalprep`',
-      },
-    ],
-    footer: 'Page 3 of 5  ·  ☠ Event Guides',
+    footer: 'Page 2 of 4  ·  ⚔️ Stats & Roster',
   },
   {
     title: '⚔️  War & Rally Commands',
@@ -63,8 +49,16 @@ const PAGES = [
         name: '/rally',
         value: 'Rally calls are posted by Officers — watch for @everyone pings with countdown timers.\nClick ✅ **I\'m In** or ❌ **Can\'t Make It** to sign up.',
       },
+      {
+        name: '/schedule list',
+        value: 'View all upcoming alliance events and their times.\n`/schedule list`',
+      },
+      {
+        name: '/diplomacy list',
+        value: 'View current alliance allies and Non-Aggression Pacts.\n`/diplomacy list`',
+      },
     ],
-    footer: 'Page 4 of 5  ·  ☠ War & Rallies',
+    footer: 'Page 3 of 4  ·  ⚔️ War & Rallies',
   },
   {
     title: '📢  Announcement & Misc Commands',
@@ -79,10 +73,10 @@ const PAGES = [
       },
       {
         name: '🌍  Translations',
-        value: 'Important messages are translated into 12 languages by Officers.\nIf you need something translated, react to the message with your country\'s flag emoji.',
+        value: 'Important messages are translated into 20+ languages by Officers.\nNew members automatically receive welcome messages in their own language.',
       },
     ],
-    footer: 'Page 5 of 5  ·  ☠ Announcements & Misc',
+    footer: 'Page 4 of 4  ·  ⚔️ Announcements & Misc',
   },
 ];
 
