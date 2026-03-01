@@ -1,0 +1,28 @@
+{
+  "1475667012339499106": [
+    {
+      "name": "Frankie",
+      "emoji": "🎯",
+      "note": "R3, R4, and R5 Begin Rallies",
+      "day": 0,
+      "utcHour": 20,
+      "utcMinute": 0,
+      "duration": 35,
+      "announceEnabled": true,
+      "announceChannelId": "1475684431137345626",
+      "addedAt": 1772388735421
+    },
+    {
+      "name": "Territory War",
+      "emoji": "🎯",
+      "note": "",
+      "day": 1,
+      "utcHour": 2,
+      "utcMinute": 0,
+      "duration": 30,
+      "announceEnabled": true,
+      "announceChannelId": "1475684431137345626",
+      "addedAt": 1772388769943
+    }
+  ]
+}
