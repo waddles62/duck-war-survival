@@ -76,14 +76,14 @@ function buildWarText(war) {
   }
 
   lines.push(divider());
-  lines.push('☠ Dark War: Survival — Alliance Command');
+  lines.push('⚔️ Alliance Command Bot');
   return lines.join('\n');
 }
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('war')
-    .setDescription('Track Dark War: Survival territory wars and zone control')
+    .setDescription('Track Alliance Command Bot territory wars and zone control')
 
     // /war start
     .addSubcommand(sub => sub
@@ -207,7 +207,7 @@ module.exports = {
 
       const meta = WAR_TYPES[type];
       await interaction.reply({
-        content: `@everyone\n☠ **${meta.emoji} ${meta.label.toUpperCase()} DECLARED — ${name}** ☠`,
+        content: `@everyone\n⚔️ **${meta.emoji} ${meta.label.toUpperCase()} DECLARED — ${name}** ☠`,
         components: [row],
       });
 

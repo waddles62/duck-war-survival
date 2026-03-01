@@ -33,7 +33,7 @@ async function autoSyncRole(interaction, userId, rank) {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('roster')
-    .setDescription('Manage the Dark War: Survival alliance roster')
+    .setDescription('Manage the Alliance Command Bot alliance roster')
 
     // /roster list
     .addSubcommand(sub => sub
@@ -117,8 +117,8 @@ module.exports = {
       }
 
       rows.sort((a, b) => DWS_RANKS.indexOf(a.rank) - DWS_RANKS.indexOf(b.rank));
-      const title = `☠ **Alliance Roster${filter !== 'all' ? ` — ${filter}` : ''} (${rows.length} members)**`;
-      return interaction.editReply([title, divider(), rows.map(r => r.display).join('\n'), divider(), '☠ Dark War: Survival — Alliance Command'].join('\n'));
+      const title = `⚔️ **Alliance Roster${filter !== 'all' ? ` — ${filter}` : ''} (${rows.length} members)**`;
+      return interaction.editReply([title, divider(), rows.map(r => r.display).join('\n'), divider(), '⚔️ Alliance Command Bot'].join('\n'));
     }
 
     // ── SYNC — auto-add all Discord members by role ───────────────────────────
@@ -147,7 +147,7 @@ module.exports = {
       }
 
       const lines = [
-        '☠ **Roster Sync Complete**',
+        '⚔️ **Roster Sync Complete**',
         divider(),
         `✅ **Added (${added.length}):** ${added.length > 0 ? added.join(', ') : 'None'}`,
         `⏭️ **Already tracked (${skipped.length}):** ${skipped.length > 0 ? skipped.join(', ') : 'None'}`,
@@ -184,7 +184,7 @@ module.exports = {
       if (added.length === 0) return interaction.reply({ content: '❌ No valid members provided.', ephemeral: true });
 
       const skippedNote = skipped.length > 0 ? `\n\n⚠️ Skipped: ${skipped.join(', ')}` : '';
-      return interaction.reply({ content: `☠ **${added.length} member${added.length > 1 ? 's' : ''} added!**\n\n${added.join('\n')}\n\nWelcome, survivors!${skippedNote}` });
+      return interaction.reply({ content: `⚔️ **${added.length} member${added.length > 1 ? 's' : ''} added!**\n\n${added.join('\n')}\n\nWelcome to the alliance!${skippedNote}` });
     }
 
     // ── RANK ──────────────────────────────────────────────────────────────────

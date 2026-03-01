@@ -22,14 +22,14 @@ function rallyText({ event, description, author, countdown, rsvps = [] }) {
   }
 
   lines.push(divider());
-  lines.push(`☠ Posted by ${author}`);
+  lines.push(`⚔️ Posted by ${author}`);
   return lines.join('\n');
 }
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('rally')
-    .setDescription('Send a timed Dark War: Survival rally call')
+    .setDescription('Send a timed Alliance Command Bot rally call')
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
     .addStringOption(o => o
       .setName('event')

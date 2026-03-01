@@ -18,7 +18,7 @@ const PAGES = [
       { name: '📢  Announcements',     value: 'View pinned alliance announcements',              inline: true },
       { name: '❓  Help',              value: 'This menu',                                       inline: true },
     ],
-    footer: 'Page 1 of 5  ·  ☠ Dark War: Survival — Alliance Command',
+    footer: 'Page 1 of 5  ·  ⚔️ Alliance Command Bot',
   },
   {
     title: '📊  Stats & Roster Commands',

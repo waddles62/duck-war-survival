@@ -7,6 +7,7 @@ const {
   ChannelType,
 } = require('discord.js');
 const { announcementEmbed } = require('../embeds');
+const { addAnnouncementToSchedule } = require('../scheduleHelper');
 const db = require('../db');
 
 module.exports = {
@@ -92,7 +93,7 @@ module.exports = {
 
     const guide = typeGuides[type] || typeGuides.general;
 
-    const systemPrompt = `You are the passionate, battle-hardened commander of a Dark War: Survival alliance.
+    const systemPrompt = `You are the passionate, battle-hardened commander of a Alliance Command Bot alliance.
 Your job is to rewrite alliance announcements so they are punchy, inspiring and full of alliance pride.
 
 TONE for this message: ${guide.tone}
@@ -179,6 +180,9 @@ WRITING RULES:
         plainText: true,
       });
 
+      // Add to event schedule
+      addAnnouncementToSchedule(interaction.guildId, { title, type, scheduledAt });
+
       const when = new Date(scheduledAt).toUTCString();
       const mentionNote = mentionStr ? ` · will ping **${mentionStr}**` : '';
 
@@ -190,6 +194,7 @@ WRITING RULES:
           plainMessage,
           `──────────────────`,
           `✅ Saved! The bot will post this automatically at the scheduled time.`,
+          `📅 Added to \`/schedule\` automatically.`,
         ].join('\n'),
       });
     }
@@ -320,7 +325,7 @@ WRITING RULES:
               body: JSON.stringify({
                 model: 'claude-haiku-4-5-20251001',
                 max_tokens: 300,
-                system: `You condense Dark War: Survival alliance messages into short in-game messages or emails.
+                system: `You condense Alliance Command Bot alliance messages into short in-game messages or emails.
 Rules:
 - Remove ALL emojis and Discord formatting (no **, no markdown)
 - Keep ALL key info: times, targets, instructions, requirements

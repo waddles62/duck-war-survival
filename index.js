@@ -32,10 +32,10 @@ client.once('ready', async () => {
   try {
     const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
     await rest.put(
-      Routes.applicationGuildCommands(client.user.id, process.env.GUILD_ID),
+      Routes.applicationCommands(client.user.id),
       { body: commandsData }
     );
-    console.log('✅ Slash commands registered.');
+    console.log('✅ Global slash commands registered.');
   } catch (err) {
     console.error('❌ Failed to register commands:', err);
   }

@@ -1,11 +1,12 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ChannelType } = require('discord.js');
 const { announcementText } = require('../embeds');
+const { addAnnouncementToSchedule } = require('../scheduleHelper');
 const db = require('../db');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('announce')
-    .setDescription('Post a Dark War: Survival alliance announcement')
+    .setDescription('Post a Alliance Command Bot alliance announcement')
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
     .addStringOption(o => o
       .setName('type')
@@ -83,9 +84,12 @@ module.exports = {
         sent: false,
       });
 
+      // Add to event schedule
+      addAnnouncementToSchedule(interaction.guildId, { title, type, scheduledAt });
+
       const when       = new Date(scheduledAt).toUTCString();
       const mentionNote = mentionStr ? ` · will ping **${mentionStr}**` : '';
-      return interaction.editReply(`✅ **${title}** scheduled for **${when}** in <#${targetChannel.id}>${mentionNote}`);
+      return interaction.editReply(`✅ **${title}** scheduled for **${when}** in <#${targetChannel.id}>${mentionNote}\n📅 Added to \`/schedule\` automatically.`);
     }
 
     // ── Immediate post ────────────────────────────────────────────────────────

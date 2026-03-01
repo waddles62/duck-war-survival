@@ -45,7 +45,7 @@ module.exports = {
         .setRequired(true))
       .addStringOption(o => o
         .setName('title')
-        .setDescription('Title line (default: "☠️ A new survivor joins the wasteland!")')))
+        .setDescription('Title line (default: "⚔️ A new member joins the alliance!")')))
 
     // /welcome edit
     .addSubcommand(sub => sub
@@ -92,7 +92,7 @@ module.exports = {
     if (sub === 'setup') {
       const channel = interaction.options.getChannel('channel');
       const message = interaction.options.getString('message');
-      const title   = interaction.options.getString('title') || '☠️ A new survivor joins the wasteland!';
+      const title   = interaction.options.getString('title') || '⚔️ A new member joins the alliance!';
 
       saveConfig(guildId, { enabled: true, channelId: channel.id, message, title });
 
@@ -184,7 +184,7 @@ module.exports = {
         '**Variables:** `{user}` = mention  ·  `{name}` = username  ·  `{server}` = server name',
         '**Tip:** Use `/welcome edit` to append, prepend or replace text without retyping everything.',
         divider(),
-        '☠ Dark War: Survival — Alliance Command',
+        '⚔️ Alliance Command Bot',
       ];
       return interaction.reply({ content: statusLines.join('\n'), ephemeral: true });
     }
@@ -204,7 +204,7 @@ function buildWelcomeText(config, member, guild) {
   const tagLine = body.includes(tag) ? '' : tag + '\n';
 
   return [
-    tagLine + (config.title || '☠️ **A new survivor joins the wasteland!**'),
+    tagLine + (config.title || '⚔️ **A new member joins the alliance!**'),
     divider(),
     body,
     divider(),

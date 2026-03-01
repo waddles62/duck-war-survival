@@ -41,7 +41,7 @@ function announcementText(opts) {
     lines.push(`\n✅ **Signed Up (${opts.rsvps.length}):** ${opts.rsvps.slice(0, 20).join(', ')}`);
   }
 
-  if (opts.author) lines.push(`\n${divider()}\n☠ Posted by ${opts.author}`);
+  if (opts.author) lines.push(`\n${divider()}\n⚔️ Posted by ${opts.author}`);
 
   return lines.join('\n');
 }
@@ -67,7 +67,7 @@ function memberText(member) {
     `**Rally Hits:** ${member.rallyHits || 0}`,
     `**Joined:** ${joined}`,
     divider(),
-    `☠ Dark War: Survival — Alliance Command`,
+    `⚔️ Alliance Command Bot`,
   ].join('\n');
 }
 
@@ -94,7 +94,7 @@ function leaderboardText(members, sortKey = 'contribution') {
     divider(),
     rows.length > 0 ? rows.join('\n') : 'No members tracked yet. Use `/stats set` to add data.',
     divider(),
-    `☠ Dark War: Survival — Alliance Command`,
+    `⚔️ Alliance Command Bot`,
   ].join('\n');
 }
 
