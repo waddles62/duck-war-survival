@@ -5,7 +5,7 @@ const db = require('../db');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('announce')
-    .setDescription('Post a Alliance Command Bot alliance announcement')
+    .setDescription('Post a Duck War Survival alliance announcement')
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
     .addStringOption(o => o
       .setName('type')

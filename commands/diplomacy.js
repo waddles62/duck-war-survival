@@ -30,7 +30,7 @@ function saveDiplo(guildId, data) {
 
 function buildDiploText(diplo) {
   const lines = [
-    '☠️ **Alliance Diplomacy**',
+    '⚔️ **Alliance Diplomacy**',
     divider(),
   ];
 
@@ -61,7 +61,7 @@ function buildDiploText(diplo) {
   }
 
   lines.push(divider());
-  lines.push('☠ Dark War: Survival — Alliance Command');
+  lines.push('⚔️ Duck War Survival');
   return lines.join('\n');
 }
 

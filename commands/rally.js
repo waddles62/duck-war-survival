@@ -29,7 +29,7 @@ function rallyText({ event, description, author, countdown, rsvps = [] }) {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('rally')
-    .setDescription('Send a timed Alliance Command Bot rally call')
+    .setDescription('Send a timed Duck War Survival rally call')
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
     .addStringOption(o => o
       .setName('event')

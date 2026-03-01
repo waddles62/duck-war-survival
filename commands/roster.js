@@ -33,7 +33,7 @@ async function autoSyncRole(interaction, userId, rank) {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('roster')
-    .setDescription('Manage the Alliance Command Bot alliance roster')
+    .setDescription('Manage the Duck War Survival alliance roster')
 
     // /roster list
     .addSubcommand(sub => sub
@@ -118,7 +118,7 @@ module.exports = {
 
       rows.sort((a, b) => DWS_RANKS.indexOf(a.rank) - DWS_RANKS.indexOf(b.rank));
       const title = `⚔️ **Alliance Roster${filter !== 'all' ? ` — ${filter}` : ''} (${rows.length} members)**`;
-      return interaction.editReply([title, divider(), rows.map(r => r.display).join('\n'), divider(), '⚔️ Alliance Command Bot'].join('\n'));
+      return interaction.editReply([title, divider(), rows.map(r => r.display).join('\n'), divider(), '⚔️ Duck War Survival'].join('\n'));
     }
 
     // ── SYNC — auto-add all Discord members by role ───────────────────────────

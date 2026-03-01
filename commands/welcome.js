@@ -184,7 +184,7 @@ module.exports = {
         '**Variables:** `{user}` = mention  ·  `{name}` = username  ·  `{server}` = server name',
         '**Tip:** Use `/welcome edit` to append, prepend or replace text without retyping everything.',
         divider(),
-        '⚔️ Alliance Command Bot',
+        '⚔️ Duck War Survival',
       ];
       return interaction.reply({ content: statusLines.join('\n'), ephemeral: true });
     }
@@ -208,7 +208,7 @@ function buildWelcomeText(config, member, guild) {
     divider(),
     body,
     divider(),
-    `☠ ${guild.name} — Alliance Command`,
+    `☠ ${guild.name} — Duck War Survival`,
   ].join('\n');
 }
 

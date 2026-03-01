@@ -9,7 +9,7 @@ const { divider } = require('../embeds');
 
 const PAGES = [
   {
-    title: '📋  Alliance Commands — Overview',
+    title: '📋  Duck War Survivals — Overview',
     description: 'Use the buttons below to browse commands by category.',
     fields: [
       { name: '📊  Stats & Roster',   value: 'View your stats, leaderboard and roster',        inline: true },
@@ -18,7 +18,7 @@ const PAGES = [
       { name: '📢  Announcements',     value: 'View pinned alliance announcements',              inline: true },
       { name: '❓  Help',              value: 'This menu',                                       inline: true },
     ],
-    footer: 'Page 1 of 5  ·  ⚔️ Alliance Command Bot',
+    footer: 'Page 1 of 5  ·  ⚔️ Duck War Survival',
   },
   {
     title: '📊  Stats & Roster Commands',

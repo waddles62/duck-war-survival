@@ -67,7 +67,7 @@ function memberText(member) {
     `**Rally Hits:** ${member.rallyHits || 0}`,
     `**Joined:** ${joined}`,
     divider(),
-    `⚔️ Alliance Command Bot`,
+    `⚔️ Duck War Survival`,
   ].join('\n');
 }
 
@@ -94,7 +94,7 @@ function leaderboardText(members, sortKey = 'contribution') {
     divider(),
     rows.length > 0 ? rows.join('\n') : 'No members tracked yet. Use `/stats set` to add data.',
     divider(),
-    `⚔️ Alliance Command Bot`,
+    `⚔️ Duck War Survival`,
   ].join('\n');
 }
 

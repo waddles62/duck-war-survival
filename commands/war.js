@@ -76,14 +76,14 @@ function buildWarText(war) {
   }
 
   lines.push(divider());
-  lines.push('⚔️ Alliance Command Bot');
+  lines.push('⚔️ Duck War Survival');
   return lines.join('\n');
 }
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('war')
-    .setDescription('Track Alliance Command Bot territory wars and zone control')
+    .setDescription('Track Duck War Survival territory wars and zone control')
 
     // /war start
     .addSubcommand(sub => sub
@@ -328,7 +328,7 @@ module.exports = {
         `🛡️ **Defenders:** ${war.defenders?.length > 0 ? war.defenders.join(', ') : 'None recorded'}`,
         `🗺️ **Final Zones:** ${zonesFinal}`,
         '────────────────────',
-        `Duration: ${duration} minutes  ·  ☠ Alliance Command`,
+        `Duration: ${duration} minutes  ·  ☠ Duck War Survival`,
       ].join('\n');
 
       // Archive

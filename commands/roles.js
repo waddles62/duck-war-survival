@@ -125,7 +125,7 @@ module.exports = {
         return `${RANK_EMOJI[rank]} **${rank}** → ${roleStr}`;
       });
       return interaction.reply({
-        content: ['🔄 **Rank → Role Mappings**', divider(), rows.join('\n'), divider(), '☠ Dark War: Survival — Alliance Command'].join('\n'),
+        content: ['🔄 **Rank → Role Mappings**', divider(), rows.join('\n'), divider(), '☠ Duck War Survival — Duck War Survival'].join('\n'),
         ephemeral: true,
       });
     }
@@ -190,7 +190,7 @@ module.exports = {
       ];
       if (results.failed.length > 0) syncLines.push(`❌ **Failed (${results.failed.length}):** ${results.failed.join(', ')}`);
       syncLines.push(divider());
-      syncLines.push('☠ Dark War: Survival — Alliance Command');
+      syncLines.push('☠ Duck War Survival — Duck War Survival');
       return interaction.editReply({ content: syncLines.join('\n') });
     }
 

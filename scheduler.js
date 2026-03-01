@@ -57,7 +57,7 @@ async function sendEventWarning(client, item, guildId, config) {
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 300,
-        system: `You are a Dark War: Survival alliance commander sending a pre-event warning.
+        system: `You are a Duck War Survival Duck War Survivaler sending a pre-event warning.
 Write a short punchy announcement that an event starts in 30 minutes.
 Format: one emoji per point, blank line between points, 2-3 points max.
 Keep ALL info: event name, time, any notes.

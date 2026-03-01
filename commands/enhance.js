@@ -92,7 +92,7 @@ module.exports = {
 
     const guide = typeGuides[type] || typeGuides.general;
 
-    const systemPrompt = `You are the passionate, battle-hardened commander of a Alliance Command Bot alliance.
+    const systemPrompt = `You are the passionate, battle-hardened commander of a Duck War Survival alliance.
 Your job is to rewrite alliance announcements so they are punchy, inspiring and full of alliance pride.
 
 TONE for this message: ${guide.tone}
@@ -323,7 +323,7 @@ WRITING RULES:
               body: JSON.stringify({
                 model: 'claude-haiku-4-5-20251001',
                 max_tokens: 300,
-                system: `You condense Alliance Command Bot alliance messages into short in-game messages or emails.
+                system: `You condense Duck War Survival alliance messages into short in-game messages or emails.
 Rules:
 - Remove ALL emojis and Discord formatting (no **, no markdown)
 - Keep ALL key info: times, targets, instructions, requirements
