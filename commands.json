@@ -1,0 +1,1370 @@
+[
+  {
+    "options": [
+      {
+        "type": 3,
+        "choices": [
+          {
+            "name": "🔴 War Alert",
+            "value": "war"
+          },
+          {
+            "name": "🟠 Rally Call",
+            "value": "rally"
+          },
+          {
+            "name": "🟡 Event Brief",
+            "value": "event"
+          },
+          {
+            "name": "🟢 Resource Call",
+            "value": "resource"
+          },
+          {
+            "name": "⚪ General Info",
+            "value": "general"
+          }
+        ],
+        "name": "type",
+        "description": "Announcement type",
+        "required": true
+      },
+      {
+        "type": 3,
+        "name": "title",
+        "description": "Announcement title, e.g. \"Territory War — Zone 7 Assault\"",
+        "required": true
+      },
+      {
+        "type": 3,
+        "name": "message",
+        "description": "Full announcement body",
+        "required": true
+      },
+      {
+        "name": "mention",
+        "description": "Role to tag — overrides the default @everyone for war/rally (choose @everyone role to ping all)",
+        "required": false,
+        "type": 8
+      },
+      {
+        "type": 4,
+        "name": "countdown",
+        "description": "Rally countdown in minutes (for rally/war types)",
+        "required": false
+      },
+      {
+        "type": 3,
+        "name": "schedule",
+        "description": "Schedule time as YYYY-MM-DD HH:MM (24h UTC), e.g. 2025-03-01 20:00",
+        "required": false
+      },
+      {
+        "channel_types": [
+          0
+        ],
+        "name": "channel",
+        "description": "Target channel (defaults to current channel)",
+        "required": false,
+        "type": 7
+      }
+    ],
+    "name": "announce",
+    "description": "Post a Duck War Survival alliance announcement",
+    "default_member_permissions": "8192",
+    "type": 1
+  },
+  {
+    "options": [
+      {
+        "type": 1,
+        "name": "add",
+        "description": "Add an ally or NAP (Officers+)",
+        "options": [
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "🤝 Ally",
+                "value": "ally"
+              },
+              {
+                "name": "🕊️ NAP",
+                "value": "nap"
+              }
+            ],
+            "name": "type",
+            "description": "Relationship type",
+            "required": true
+          },
+          {
+            "type": 3,
+            "name": "name",
+            "description": "Alliance name",
+            "required": true
+          },
+          {
+            "type": 3,
+            "name": "note",
+            "description": "Optional note e.g. \"mutual defense\" or \"expires after Territory War\"",
+            "required": false
+          },
+          {
+            "type": 3,
+            "name": "since",
+            "description": "Date agreed e.g. \"2026-02-26\"",
+            "required": false
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "remove",
+        "description": "Remove an ally or NAP (Officers+)",
+        "options": [
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "🤝 Ally",
+                "value": "ally"
+              },
+              {
+                "name": "🕊️ NAP",
+                "value": "nap"
+              }
+            ],
+            "name": "type",
+            "description": "Relationship type",
+            "required": true
+          },
+          {
+            "min_value": 1,
+            "type": 4,
+            "name": "number",
+            "description": "Number from /diplomacy list",
+            "required": false
+          },
+          {
+            "type": 3,
+            "name": "name",
+            "description": "Alliance name to remove",
+            "required": false
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "list",
+        "description": "Show current allies and NAPs (Officers only — use /diplomacy post for everyone)",
+        "options": []
+      },
+      {
+        "type": 1,
+        "name": "post",
+        "description": "Post the diplomacy list to a channel",
+        "options": [
+          {
+            "channel_types": [
+              0
+            ],
+            "name": "channel",
+            "description": "Channel to post in (defaults to current)",
+            "required": false,
+            "type": 7
+          }
+        ]
+      }
+    ],
+    "name": "diplomacy",
+    "description": "Manage alliance allies and NAPs",
+    "default_member_permissions": "268435456",
+    "type": 1
+  },
+  {
+    "options": [
+      {
+        "type": 3,
+        "choices": [
+          {
+            "name": "🔴 War Alert",
+            "value": "war"
+          },
+          {
+            "name": "🟠 Rally Call",
+            "value": "rally"
+          },
+          {
+            "name": "🟡 Event Brief",
+            "value": "event"
+          },
+          {
+            "name": "🟢 Resource Call",
+            "value": "resource"
+          },
+          {
+            "name": "⚪ General Info",
+            "value": "general"
+          }
+        ],
+        "name": "type",
+        "description": "Announcement type",
+        "required": true
+      },
+      {
+        "type": 3,
+        "name": "draft",
+        "description": "Your rough draft — the AI will enhance it",
+        "required": true
+      },
+      {
+        "type": 3,
+        "name": "title",
+        "description": "Post title (e.g. \"Tyrant Rally 14:00\")",
+        "required": true
+      },
+      {
+        "name": "mention",
+        "description": "Role to tag — overrides default @everyone for war/rally",
+        "required": false,
+        "type": 8
+      },
+      {
+        "channel_types": [
+          0
+        ],
+        "name": "channel",
+        "description": "Channel to post in (defaults to current channel)",
+        "required": false,
+        "type": 7
+      },
+      {
+        "type": 3,
+        "name": "schedule",
+        "description": "Schedule for later — YYYY-MM-DD HH:MM (24h, server timezone)",
+        "required": false
+      }
+    ],
+    "name": "enhance",
+    "description": "✨ AI-enhance an announcement with full posting options",
+    "default_member_permissions": "8192",
+    "type": 1
+  },
+  {
+    "options": [],
+    "name": "help",
+    "description": "Show all available alliance bot commands",
+    "type": 1
+  },
+  {
+    "options": [
+      {
+        "type": 3,
+        "choices": [
+          {
+            "name": "🧟 World Boss / Tyrant",
+            "value": "Tyrant Rally"
+          },
+          {
+            "name": "☣️  Bio-Mutant Rally",
+            "value": "Bio-Mutant Rally"
+          },
+          {
+            "name": "🏰 Territory War",
+            "value": "Territory War"
+          },
+          {
+            "name": "🏛️  Capital Clash",
+            "value": "Capital Clash"
+          },
+          {
+            "name": "🧱 Zombie Siege",
+            "value": "Zombie Siege"
+          },
+          {
+            "name": "⚔️  Alliance Showdown",
+            "value": "Alliance Showdown"
+          }
+        ],
+        "name": "event",
+        "description": "Event type",
+        "required": true
+      },
+      {
+        "max_value": 480,
+        "min_value": 1,
+        "type": 4,
+        "name": "minutes",
+        "description": "How many minutes until the rally window closes",
+        "required": true
+      },
+      {
+        "type": 3,
+        "name": "notes",
+        "description": "Extra instructions, e.g. \"Min 500K power required\"",
+        "required": false
+      },
+      {
+        "type": 4,
+        "name": "power_req",
+        "description": "Minimum power required to join (optional)",
+        "required": false
+      }
+    ],
+    "name": "rally",
+    "description": "Send a timed Duck War Survival rally call",
+    "default_member_permissions": "8192",
+    "type": 1
+  },
+  {
+    "options": [
+      {
+        "type": 1,
+        "name": "map",
+        "description": "Link a DWS rank to a Discord role",
+        "options": [
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "R5",
+                "value": "R5"
+              },
+              {
+                "name": "R4",
+                "value": "R4"
+              },
+              {
+                "name": "Member",
+                "value": "Member"
+              },
+              {
+                "name": "R1",
+                "value": "R1"
+              },
+              {
+                "name": "Friend",
+                "value": "Friend"
+              }
+            ],
+            "name": "rank",
+            "description": "DWS alliance rank",
+            "required": true
+          },
+          {
+            "name": "role",
+            "description": "Discord role to assign for this rank",
+            "required": true,
+            "type": 8
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "unmap",
+        "description": "Remove the Discord role mapping for a DWS rank",
+        "options": [
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "R5",
+                "value": "R5"
+              },
+              {
+                "name": "R4",
+                "value": "R4"
+              },
+              {
+                "name": "Member",
+                "value": "Member"
+              },
+              {
+                "name": "R1",
+                "value": "R1"
+              },
+              {
+                "name": "Friend",
+                "value": "Friend"
+              }
+            ],
+            "name": "rank",
+            "description": "DWS rank to unmap",
+            "required": true
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "config",
+        "description": "View current rank → role mappings",
+        "options": []
+      },
+      {
+        "type": 1,
+        "name": "sync",
+        "description": "Sync all tracked members' Discord roles to their DWS rank",
+        "options": []
+      },
+      {
+        "type": 1,
+        "name": "syncone",
+        "description": "Sync roles for a single member",
+        "options": [
+          {
+            "name": "member",
+            "description": "Member to sync",
+            "required": true,
+            "type": 6
+          }
+        ]
+      }
+    ],
+    "name": "roles",
+    "description": "Map DWS alliance ranks to Discord roles and auto-sync members",
+    "default_member_permissions": "268435456",
+    "type": 1
+  },
+  {
+    "options": [
+      {
+        "type": 1,
+        "name": "list",
+        "description": "Show all alliance members grouped by rank",
+        "options": [
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "R5",
+                "value": "R5"
+              },
+              {
+                "name": "R4",
+                "value": "R4"
+              },
+              {
+                "name": "Member",
+                "value": "Member"
+              },
+              {
+                "name": "R1",
+                "value": "R1"
+              },
+              {
+                "name": "Friend",
+                "value": "Friend"
+              }
+            ],
+            "name": "filter",
+            "description": "Filter by rank",
+            "required": false
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "sync",
+        "description": "Auto-add all Discord members to roster based on their roles (Officers+)",
+        "options": []
+      },
+      {
+        "type": 1,
+        "name": "add",
+        "description": "Add up to 5 members manually (Officers+)",
+        "options": [
+          {
+            "name": "member1",
+            "description": "Member 1",
+            "required": true,
+            "type": 6
+          },
+          {
+            "type": 3,
+            "name": "name1",
+            "description": "In-game name",
+            "required": true
+          },
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "R5",
+                "value": "R5"
+              },
+              {
+                "name": "R4",
+                "value": "R4"
+              },
+              {
+                "name": "Member",
+                "value": "Member"
+              },
+              {
+                "name": "R1",
+                "value": "R1"
+              },
+              {
+                "name": "Friend",
+                "value": "Friend"
+              }
+            ],
+            "name": "rank1",
+            "description": "Rank (leave blank to detect from Discord role)",
+            "required": false
+          },
+          {
+            "name": "member2",
+            "description": "Member 2",
+            "required": false,
+            "type": 6
+          },
+          {
+            "type": 3,
+            "name": "name2",
+            "description": "In-game name 2",
+            "required": false
+          },
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "R5",
+                "value": "R5"
+              },
+              {
+                "name": "R4",
+                "value": "R4"
+              },
+              {
+                "name": "Member",
+                "value": "Member"
+              },
+              {
+                "name": "R1",
+                "value": "R1"
+              },
+              {
+                "name": "Friend",
+                "value": "Friend"
+              }
+            ],
+            "name": "rank2",
+            "description": "Rank 2",
+            "required": false
+          },
+          {
+            "name": "member3",
+            "description": "Member 3",
+            "required": false,
+            "type": 6
+          },
+          {
+            "type": 3,
+            "name": "name3",
+            "description": "In-game name 3",
+            "required": false
+          },
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "R5",
+                "value": "R5"
+              },
+              {
+                "name": "R4",
+                "value": "R4"
+              },
+              {
+                "name": "Member",
+                "value": "Member"
+              },
+              {
+                "name": "R1",
+                "value": "R1"
+              },
+              {
+                "name": "Friend",
+                "value": "Friend"
+              }
+            ],
+            "name": "rank3",
+            "description": "Rank 3",
+            "required": false
+          },
+          {
+            "name": "member4",
+            "description": "Member 4",
+            "required": false,
+            "type": 6
+          },
+          {
+            "type": 3,
+            "name": "name4",
+            "description": "In-game name 4",
+            "required": false
+          },
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "R5",
+                "value": "R5"
+              },
+              {
+                "name": "R4",
+                "value": "R4"
+              },
+              {
+                "name": "Member",
+                "value": "Member"
+              },
+              {
+                "name": "R1",
+                "value": "R1"
+              },
+              {
+                "name": "Friend",
+                "value": "Friend"
+              }
+            ],
+            "name": "rank4",
+            "description": "Rank 4",
+            "required": false
+          },
+          {
+            "name": "member5",
+            "description": "Member 5",
+            "required": false,
+            "type": 6
+          },
+          {
+            "type": 3,
+            "name": "name5",
+            "description": "In-game name 5",
+            "required": false
+          },
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "R5",
+                "value": "R5"
+              },
+              {
+                "name": "R4",
+                "value": "R4"
+              },
+              {
+                "name": "Member",
+                "value": "Member"
+              },
+              {
+                "name": "R1",
+                "value": "R1"
+              },
+              {
+                "name": "Friend",
+                "value": "Friend"
+              }
+            ],
+            "name": "rank5",
+            "description": "Rank 5",
+            "required": false
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "rank",
+        "description": "Change a member's rank (Officers+)",
+        "options": [
+          {
+            "name": "member",
+            "description": "Member to update",
+            "required": true,
+            "type": 6
+          },
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "R5",
+                "value": "R5"
+              },
+              {
+                "name": "R4",
+                "value": "R4"
+              },
+              {
+                "name": "Member",
+                "value": "Member"
+              },
+              {
+                "name": "R1",
+                "value": "R1"
+              },
+              {
+                "name": "Friend",
+                "value": "Friend"
+              }
+            ],
+            "name": "rank",
+            "description": "New rank",
+            "required": true
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "remove",
+        "description": "Remove a member from the roster (Officers+)",
+        "options": [
+          {
+            "name": "member",
+            "description": "Member to remove",
+            "required": true,
+            "type": 6
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "inactive",
+        "description": "List members with low contributions",
+        "options": [
+          {
+            "type": 4,
+            "name": "below",
+            "description": "Flag members below this contribution (default: 100)",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "name": "roster",
+    "description": "Manage the Duck War Survival alliance roster",
+    "type": 1
+  },
+  {
+    "options": [
+      {
+        "type": 1,
+        "name": "post",
+        "description": "Post the full event schedule to a channel",
+        "options": [
+          {
+            "channel_types": [
+              0
+            ],
+            "name": "channel",
+            "description": "Channel to post in (defaults to current)",
+            "required": false,
+            "type": 7
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "add",
+        "description": "Add an event to the schedule (Officers+)",
+        "options": [
+          {
+            "type": 3,
+            "name": "name",
+            "description": "Event name e.g. \"Territory War\"",
+            "required": true
+          },
+          {
+            "max_value": 23,
+            "min_value": 0,
+            "type": 4,
+            "name": "hour",
+            "description": "Hour in your alliance timezone (0–23)",
+            "required": true
+          },
+          {
+            "max_value": 59,
+            "min_value": 0,
+            "type": 4,
+            "name": "minute",
+            "description": "Minute (0–59), default 0",
+            "required": false
+          },
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "Sunday",
+                "value": "0"
+              },
+              {
+                "name": "Monday",
+                "value": "1"
+              },
+              {
+                "name": "Tuesday",
+                "value": "2"
+              },
+              {
+                "name": "Wednesday",
+                "value": "3"
+              },
+              {
+                "name": "Thursday",
+                "value": "4"
+              },
+              {
+                "name": "Friday",
+                "value": "5"
+              },
+              {
+                "name": "Saturday",
+                "value": "6"
+              }
+            ],
+            "name": "day",
+            "description": "Day of week — leave blank for Daily",
+            "required": false
+          },
+          {
+            "type": 3,
+            "name": "emoji",
+            "description": "Emoji for this event e.g. ⚔️",
+            "required": false
+          },
+          {
+            "type": 3,
+            "name": "note",
+            "description": "Short note e.g. \"R4+ only\" or \"All welcome\"",
+            "required": false
+          },
+          {
+            "max_value": 1440,
+            "min_value": 1,
+            "type": 4,
+            "name": "duration",
+            "description": "How long the event lasts in minutes — auto-removes from schedule when done",
+            "required": false
+          },
+          {
+            "channel_types": [
+              0
+            ],
+            "name": "announce_channel",
+            "description": "Channel to post the 30-min warning in",
+            "required": false,
+            "type": 7
+          },
+          {
+            "name": "announce",
+            "description": "Auto-post a 30-min warning before this event? (default: true)",
+            "required": false,
+            "type": 5
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "remove",
+        "description": "Remove an event from the schedule (Officers+)",
+        "options": [
+          {
+            "min_value": 1,
+            "type": 4,
+            "name": "number",
+            "description": "Event number from /schedule list",
+            "required": false
+          },
+          {
+            "type": 3,
+            "name": "name",
+            "description": "Event name to remove",
+            "required": false
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "timezone",
+        "description": "Set the timezone all schedule times are displayed in (Officers+)",
+        "options": [
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "UTC",
+                "value": "UTC"
+              },
+              {
+                "name": "US Eastern (ET)",
+                "value": "America/New_York"
+              },
+              {
+                "name": "US Central (CT)",
+                "value": "America/Chicago"
+              },
+              {
+                "name": "US Mountain (MT)",
+                "value": "America/Denver"
+              },
+              {
+                "name": "US Pacific (PT)",
+                "value": "America/Los_Angeles"
+              },
+              {
+                "name": "UK (GMT/BST)",
+                "value": "Europe/London"
+              },
+              {
+                "name": "Central Europe (CET)",
+                "value": "Europe/Berlin"
+              },
+              {
+                "name": "Moscow (MSK)",
+                "value": "Europe/Moscow"
+              },
+              {
+                "name": "Gulf (GST)",
+                "value": "Asia/Dubai"
+              },
+              {
+                "name": "India (IST)",
+                "value": "Asia/Kolkata"
+              },
+              {
+                "name": "China/Philippines (CST)",
+                "value": "Asia/Shanghai"
+              },
+              {
+                "name": "Japan/Korea (JST)",
+                "value": "Asia/Tokyo"
+              },
+              {
+                "name": "GMT-2 (Mid-Atlantic)",
+                "value": "Etc/GMT+2"
+              },
+              {
+                "name": "Australia East (AEST)",
+                "value": "Australia/Sydney"
+              }
+            ],
+            "name": "tz",
+            "description": "Choose your alliance timezone",
+            "required": true
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "list",
+        "description": "Show all scheduled events (Officers+ only — use /schedule post for everyone)",
+        "options": []
+      }
+    ],
+    "name": "schedule",
+    "description": "Manage the alliance event schedule",
+    "type": 1
+  },
+  {
+    "options": [
+      {
+        "type": 1,
+        "name": "set",
+        "description": "Set or update a member's stats (Officers+)",
+        "options": [
+          {
+            "name": "member",
+            "description": "Alliance member",
+            "required": true,
+            "type": 6
+          },
+          {
+            "type": 3,
+            "name": "name",
+            "description": "In-game name",
+            "required": false
+          },
+          {
+            "type": 4,
+            "name": "power",
+            "description": "Current power score",
+            "required": false
+          },
+          {
+            "type": 4,
+            "name": "contribution",
+            "description": "Alliance contribution score",
+            "required": false
+          },
+          {
+            "type": 4,
+            "name": "kills",
+            "description": "Total kill count",
+            "required": false
+          },
+          {
+            "type": 4,
+            "name": "rally_hits",
+            "description": "Number of rally hits",
+            "required": false
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "view",
+        "description": "View a member's stats",
+        "options": [
+          {
+            "name": "member",
+            "description": "Member to look up (defaults to yourself)",
+            "required": false,
+            "type": 6
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "leaderboard",
+        "description": "Show alliance leaderboard",
+        "options": [
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "Contribution",
+                "value": "contribution"
+              },
+              {
+                "name": "Power",
+                "value": "power"
+              },
+              {
+                "name": "Kills",
+                "value": "kills"
+              },
+              {
+                "name": "Rally Hits",
+                "value": "rallyHits"
+              }
+            ],
+            "name": "sort",
+            "description": "Sort by stat",
+            "required": false
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "delete",
+        "description": "Remove a member from tracking (Officers+)",
+        "options": [
+          {
+            "name": "member",
+            "description": "Member to remove",
+            "required": true,
+            "type": 6
+          }
+        ]
+      }
+    ],
+    "name": "stats",
+    "description": "Track and view Dark War: Survival member statistics",
+    "type": 1
+  },
+  {
+    "options": [
+      {
+        "type": 3,
+        "name": "message",
+        "description": "The message to translate into all languages",
+        "required": true
+      },
+      {
+        "channel_types": [
+          0
+        ],
+        "name": "channel",
+        "description": "Channel to post in (defaults to current channel)",
+        "required": false,
+        "type": 7
+      },
+      {
+        "name": "mention",
+        "description": "Optional role to ping with the message",
+        "required": false,
+        "type": 8
+      }
+    ],
+    "name": "translate",
+    "description": "Translate a message into all DWS community languages and post it",
+    "default_member_permissions": "8192",
+    "type": 1
+  },
+  {
+    "options": [
+      {
+        "type": 1,
+        "name": "start",
+        "description": "Declare a war and open the war room (Officers+)",
+        "options": [
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "🏰 Territory War",
+                "value": "territory"
+              },
+              {
+                "name": "🏛️ Capital Clash",
+                "value": "capital"
+              },
+              {
+                "name": "🧱 Zombie Siege",
+                "value": "siege"
+              },
+              {
+                "name": "⚔️ Alliance Showdown",
+                "value": "showdown"
+              }
+            ],
+            "name": "type",
+            "description": "War type",
+            "required": true
+          },
+          {
+            "type": 3,
+            "name": "name",
+            "description": "War name / opponent, e.g. \"vs IronFang Alliance\"",
+            "required": true
+          },
+          {
+            "type": 3,
+            "name": "notes",
+            "description": "Strategy notes or commander orders",
+            "required": false
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "zone",
+        "description": "Update a territory zone status (Officers+)",
+        "options": [
+          {
+            "max_value": 10,
+            "min_value": 1,
+            "type": 4,
+            "name": "id",
+            "description": "Zone number (1–10)",
+            "required": true
+          },
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "🟢 Controlled",
+                "value": "controlled"
+              },
+              {
+                "name": "🟡 Contested",
+                "value": "contested"
+              },
+              {
+                "name": "🔴 Enemy Hold",
+                "value": "enemy"
+              },
+              {
+                "name": "⚪ Neutral",
+                "value": "neutral"
+              },
+              {
+                "name": "🟠 Attacking",
+                "value": "attacking"
+              },
+              {
+                "name": "🛡️ Defending",
+                "value": "defending"
+              }
+            ],
+            "name": "status",
+            "description": "Zone status",
+            "required": true
+          },
+          {
+            "type": 3,
+            "name": "zone_name",
+            "description": "Zone label, e.g. \"Northern Outpost\"",
+            "required": false
+          },
+          {
+            "type": 3,
+            "name": "assign",
+            "description": "Assign a member or squad to this zone",
+            "required": false
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "stats",
+        "description": "Update war battle stats (Officers+)",
+        "options": [
+          {
+            "type": 4,
+            "name": "kills",
+            "description": "Alliance kill count",
+            "required": false
+          },
+          {
+            "type": 4,
+            "name": "deaths",
+            "description": "Alliance death count",
+            "required": false
+          },
+          {
+            "type": 4,
+            "name": "score",
+            "description": "Current alliance score",
+            "required": false
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "status",
+        "description": "Show current war status",
+        "options": []
+      },
+      {
+        "type": 1,
+        "name": "end",
+        "description": "Close the active war and post results (Officers+)",
+        "options": [
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "🏆 Victory",
+                "value": "victory"
+              },
+              {
+                "name": "💀 Defeat",
+                "value": "defeat"
+              },
+              {
+                "name": "🤝 Draw",
+                "value": "draw"
+              }
+            ],
+            "name": "result",
+            "description": "War outcome",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "name": "war",
+    "description": "Track Duck War Survival territory wars and zone control",
+    "type": 1
+  },
+  {
+    "options": [
+      {
+        "type": 1,
+        "name": "setup",
+        "description": "Set the welcome channel and message",
+        "options": [
+          {
+            "channel_types": [
+              0
+            ],
+            "name": "channel",
+            "description": "Channel to send welcome messages in",
+            "required": true,
+            "type": 7
+          },
+          {
+            "type": 3,
+            "name": "message",
+            "description": "Welcome message — use {user} {name} {server}, and \\n for new lines",
+            "required": true
+          },
+          {
+            "type": 3,
+            "name": "title",
+            "description": "Title line (default: \"⚔️ A new member joins the alliance!\")",
+            "required": false
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "edit",
+        "description": "Quickly update part of the welcome message without retyping it all",
+        "options": [
+          {
+            "type": 3,
+            "choices": [
+              {
+                "name": "➕ Append — add text to the end",
+                "value": "append"
+              },
+              {
+                "name": "⬆️ Prepend — add text to the beginning",
+                "value": "prepend"
+              },
+              {
+                "name": "✏️ Replace — swap one phrase for another",
+                "value": "replace"
+              },
+              {
+                "name": "📝 Title — change just the title line",
+                "value": "title"
+              }
+            ],
+            "name": "action",
+            "description": "What to do",
+            "required": true
+          },
+          {
+            "type": 3,
+            "name": "text",
+            "description": "Text to add, or the NEW text when using Replace. Use \\n for new lines.",
+            "required": true
+          },
+          {
+            "type": 3,
+            "name": "find",
+            "description": "(Replace only) The exact phrase you want to swap out",
+            "required": false
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "name": "test",
+        "description": "Preview the welcome message as it will appear",
+        "options": []
+      },
+      {
+        "type": 1,
+        "name": "disable",
+        "description": "Turn off welcome messages",
+        "options": []
+      },
+      {
+        "type": 1,
+        "name": "status",
+        "description": "Show current welcome message configuration",
+        "options": []
+      }
+    ],
+    "name": "welcome",
+    "description": "Configure the welcome message for new members",
+    "default_member_permissions": "32",
+    "type": 1
+  }
+]

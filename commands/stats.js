@@ -6,7 +6,7 @@ const db = require('../db');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('stats')
-    .setDescription('Track and view Dark War: Survival member statistics')
+    .setDescription('Track and view Duck War Survival member statistics')
     .addSubcommand(sub => sub
       .setName('set')
       .setDescription('Set or update a member\'s stats (Officers+)')
