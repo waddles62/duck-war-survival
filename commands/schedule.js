@@ -237,8 +237,69 @@ module.exports = {
     if (sub === 'post') {
       const channel = interaction.options.getChannel('channel') || interaction.channel;
       const embed   = buildScheduleEmbed(items, config, interaction.guild.name);
-      await channel.send({ content: embed });
-      return interaction.reply({ content: `✅ Schedule posted in <#${channel.id}>`, ephemeral: true });
+      const posted  = await channel.send({ content: embed });
+
+      // Add thumbs up reaction for officers to get in-game mail version
+      await posted.react('👍');
+
+      // Collect 👍 reactions from officers for 24 hours
+      const collector = posted.createReactionCollector({
+        filter: (reaction, user) => reaction.emoji.name === '👍' && !user.bot,
+        time: 24 * 60 * 60 * 1000,
+      });
+
+      collector.on('collect', async (reaction, user) => {
+        try {
+          const member = await interaction.guild.members.fetch(user.id);
+          const officerCheck = member.permissions.has(PermissionFlagsBits.ManageRoles);
+          if (!officerCheck) return;
+
+          // Build plain text in-game mail version
+          const tz      = config.timezone || 'UTC';
+          const tzLabel = TIMEZONES.find(t => t.value === tz)?.name || tz;
+          const sorted  = getSortedItems(items);
+
+          const mailLines = ['ALLIANCE EVENT SCHEDULE', '────────────────────'];
+
+          // Group by day
+          const byDay = {};
+          for (const item of sorted) {
+            const day = item.day ?? 7;
+            if (!byDay[day]) byDay[day] = [];
+            byDay[day].push(item);
+          }
+
+          if (byDay[7]) {
+            mailLines.push('DAILY');
+            byDay[7].forEach(item => {
+              const time = formatTime(item.utcHour, item.utcMinute, tz);
+              mailLines.push(`${time}  ${item.name}${item.note ? ` - ${item.note}` : ''}`);
+            });
+            mailLines.push('');
+          }
+
+          for (let d = 0; d < 7; d++) {
+            if (!byDay[d]) continue;
+            mailLines.push(DAYS[d].toUpperCase());
+            byDay[d].forEach(item => {
+              const time = formatTime(item.utcHour, item.utcMinute, tz);
+              mailLines.push(`${time}  ${item.name}${item.note ? ` - ${item.note}` : ''}`);
+            });
+            mailLines.push('');
+          }
+
+          mailLines.push(`All times in ${tzLabel}`);
+          mailLines.push('— Duck War Survival');
+
+          await user.send({
+            content: `📋 **Schedule — In-Game Mail Version**\n\`\`\`\n${mailLines.join('\n')}\n\`\`\`\nCopy and paste this directly into your in-game alliance mail.`,
+          });
+        } catch (err) {
+          // DMs may be closed — silently ignore
+        }
+      });
+
+      return interaction.reply({ content: `✅ Schedule posted in <#${channel.id}>  ·  React 👍 to receive an in-game mail version via DM`, ephemeral: true });
     }
 
     // ── ADD ───────────────────────────────────────────────────────────────────
