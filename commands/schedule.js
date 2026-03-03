@@ -5,6 +5,7 @@ const {
   ChannelType,
 } = require('discord.js');
 const { divider } = require('../embeds');
+const { attachFlagTranslator } = require('../reactionTranslate');
 const fs = require('fs');
 const path = require('path');
 
@@ -160,6 +161,44 @@ function buildScheduleEmbed(items, config, guildName) {
   return lines.join('\n');
 }
 
+// ── Build plain text version for translation (no Discord markdown) ────────────
+
+function buildScheduleMailText(items, config) {
+  const tz      = config.timezone || 'UTC';
+  const tzLabel = TIMEZONES.find(t => t.value === tz)?.name || tz;
+  const sorted  = getSortedItems(items);
+  const lines   = ['ALLIANCE EVENT SCHEDULE', ''];
+
+  const byDay = {};
+  for (const item of sorted) {
+    const day = item.day ?? 7;
+    if (!byDay[day]) byDay[day] = [];
+    byDay[day].push(item);
+  }
+
+  if (byDay[7]) {
+    lines.push('DAILY');
+    byDay[7].forEach(item => {
+      const time = formatTime(item.utcHour, item.utcMinute, tz);
+      lines.push(`${time}  ${item.name}${item.note ? ` - ${item.note}` : ''}`);
+    });
+    lines.push('');
+  }
+
+  for (let d = 0; d < 7; d++) {
+    if (!byDay[d]) continue;
+    lines.push(DAYS[d].toUpperCase());
+    byDay[d].forEach(item => {
+      const time = formatTime(item.utcHour, item.utcMinute, tz);
+      lines.push(`${time}  ${item.name}${item.note ? ` - ${item.note}` : ''}`);
+    });
+    lines.push('');
+  }
+
+  lines.push(`All times in ${tzLabel}`);
+  return lines.join('\n');
+}
+
 // ── Command ───────────────────────────────────────────────────────────────────
 
 // ── Helper — consistent sort order for numbering ─────────────────────────────
@@ -241,6 +280,9 @@ module.exports = {
 
       // Add thumbs up reaction for officers to get in-game mail version
       await posted.react('👍');
+
+      // Attach flag reaction translator for members
+      attachFlagTranslator(posted, buildScheduleMailText(items, config), 'Alliance Schedule');
 
       // Collect 👍 reactions from officers for 24 hours
       const collector = posted.createReactionCollector({

@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, PermissionFlagsBits, ChannelType } = require('discord.js');
 const { announcementText } = require('../embeds');
+const { attachFlagTranslator } = require('../reactionTranslate');
 const db = require('../db');
 
 module.exports = {
@@ -93,7 +94,10 @@ module.exports = {
     // ── Immediate post ────────────────────────────────────────────────────────
     const text = announcementText({ type, title, description: message, author, countdown: countdownSecs });
     const content = mentionStr ? mentionStr + '\n' + text : text;
-    await targetChannel.send({ content });
+    const postedMsg = await targetChannel.send({ content });
+
+    // Attach flag reaction translator
+    attachFlagTranslator(postedMsg, `${title}\n\n${message}`, title);
 
     // Save to history
     db.addAnnouncement({

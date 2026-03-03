@@ -7,6 +7,7 @@ const {
   ChannelType,
 } = require('discord.js');
 const { announcementEmbed } = require('../embeds');
+const { attachFlagTranslator } = require('../reactionTranslate');
 const db = require('../db');
 
 module.exports = {
@@ -282,6 +283,9 @@ WRITING RULES:
 
         // Add thumbs up reaction as prompt
         try { await postedMsg.react('👍'); } catch {}
+
+        // Attach flag reaction translator for members
+        attachFlagTranslator(postedMsg, enhanced, title);
 
         // Save to announcement history
         db.addAnnouncement({
