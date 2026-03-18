@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-const { getRankFromRoles, DWS_RANKS, RANK_EMOJI } = require('../rankFromRoles');
+const { getRankFromRoles, isOfficer: checkOfficer, DWS_RANKS, RANK_EMOJI } = require('../rankFromRoles');
 const db   = require('../db');
 const { formatNum, divider } = require('../embeds');
 const fs   = require('fs');
@@ -91,7 +91,7 @@ module.exports = {
 
   async execute(interaction) {
     const sub       = interaction.options.getSubcommand();
-    const isOfficer = interaction.member.permissions.has(PermissionFlagsBits.ManageRoles);
+    const isOfficer = checkOfficer(interaction.member, interaction.guildId);
 
     // ── LIST ──────────────────────────────────────────────────────────────────
     if (sub === 'list') {

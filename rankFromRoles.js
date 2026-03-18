@@ -35,4 +35,15 @@ function getRankFromRoles(guildMember, guildId) {
   return null;
 }
 
-module.exports = { getRankFromRoles, DWS_RANKS, RANK_EMOJI, RANK_LABEL };
+/**
+ * Returns true if the member is R4 or R5 based on their mapped Discord roles.
+ * Falls back to ManageRoles permission if no role mapping is configured.
+ */
+function isOfficer(guildMember, guildId) {
+  const rank = getRankFromRoles(guildMember, guildId);
+  if (rank === 'R4' || rank === 'R5') return true;
+  // Fallback: ManageRoles permission (covers server admins and unmapped setups)
+  return guildMember.permissions.has(0x10000000n);
+}
+
+module.exports = { getRankFromRoles, isOfficer, DWS_RANKS, RANK_EMOJI, RANK_LABEL };

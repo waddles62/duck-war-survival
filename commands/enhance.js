@@ -313,7 +313,8 @@ WRITING RULES:
             const guildMember = await interaction.guild.members.fetch(user.id).catch(() => null);
             if (!guildMember) return;
 
-            const isOfficer = guildMember.permissions.has(0x10000000n); // ManageRoles = R4+
+            const { isOfficer: checkOfficer } = require('../rankFromRoles');
+            const isOfficer = checkOfficer(guildMember, interaction.guildId);
             if (!isOfficer) return;
 
             // Build condensed in-game version via AI

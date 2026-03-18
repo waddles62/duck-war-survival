@@ -6,6 +6,7 @@ const {
 } = require('discord.js');
 const { divider } = require('../embeds');
 const { attachFlagTranslator } = require('../reactionTranslate');
+const { isOfficer: checkOfficer } = require('../rankFromRoles');
 const fs = require('fs');
 const path = require('path');
 
@@ -268,7 +269,7 @@ module.exports = {
   async execute(interaction) {
     const sub      = interaction.options.getSubcommand();
     const guildId  = interaction.guildId;
-    const isOfficer = interaction.member.permissions.has(PermissionFlagsBits.ManageRoles);
+    const isOfficer = checkOfficer(interaction.member, interaction.guildId);
     const config   = loadConfig(guildId);
     const items    = loadItems(guildId);
 
@@ -293,7 +294,7 @@ module.exports = {
       collector.on('collect', async (reaction, user) => {
         try {
           const member = await interaction.guild.members.fetch(user.id);
-          const officerCheck = member.permissions.has(PermissionFlagsBits.ManageRoles);
+          const officerCheck = checkOfficer(member, interaction.guildId);
           if (!officerCheck) return;
 
           // Build plain text in-game mail version

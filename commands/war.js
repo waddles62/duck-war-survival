@@ -6,6 +6,7 @@ const {
   ButtonStyle,
 } = require('discord.js');
 const { divider } = require('../embeds');
+const { isOfficer: checkOfficer } = require('../rankFromRoles');
 const fs = require('fs');
 const path = require('path');
 
@@ -164,7 +165,7 @@ module.exports = {
 
   async execute(interaction) {
     const sub       = interaction.options.getSubcommand();
-    const isOfficer = interaction.member.permissions.has(PermissionFlagsBits.ManageRoles);
+    const isOfficer = checkOfficer(interaction.member, interaction.guildId);
     const wars      = loadWars();
     const guildId   = interaction.guildId;
 

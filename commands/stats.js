@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 const { memberText, leaderboardText, formatNum } = require('../embeds');
-const { getRankFromRoles } = require('../rankFromRoles');
+const { getRankFromRoles, isOfficer: checkOfficer } = require('../rankFromRoles');
 const db = require('../db');
 
 module.exports = {
@@ -41,7 +41,7 @@ module.exports = {
     const sub = interaction.options.getSubcommand();
 
     if (sub === 'set') {
-      if (!interaction.member.permissions.has(PermissionFlagsBits.ManageRoles)) {
+      if (!checkOfficer(interaction.member, interaction.guildId)) {
         return interaction.reply({ content: '❌ Only Officers and above can update stats.', ephemeral: true });
       }
       const user    = interaction.options.getUser('member');
@@ -96,7 +96,7 @@ module.exports = {
     }
 
     if (sub === 'delete') {
-      if (!interaction.member.permissions.has(PermissionFlagsBits.ManageRoles)) {
+      if (!checkOfficer(interaction.member, interaction.guildId)) {
         return interaction.reply({ content: '❌ Only Officers and above can remove members.', ephemeral: true });
       }
       const user     = interaction.options.getUser('member');
