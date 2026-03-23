@@ -31,7 +31,7 @@ const TIMEZONES = [
   { name: 'Australia East (AEST)',   value: 'Australia/Sydney' },
 ];
 
-const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const DAYS = ['Rest Day','Day 1 — Shelter Expansion','Day 2 — Hero Initiative','Day 3 — Keep Progressing','Day 4 — Arms Expert','Day 5 — Holistic Growth','Day 6 — Enemy Buster'];
 const DAY_CHOICES = DAYS.map((d, i) => ({ name: d, value: String(i) }));
 
 // ── File helpers ──────────────────────────────────────────────────────────────
