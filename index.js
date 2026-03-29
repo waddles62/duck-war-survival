@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, Collection, REST, Routes } = require('discord.js');
+const { Client, GatewayIntentBits, Partials, Collection, REST, Routes } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
@@ -11,6 +11,7 @@ const client = new Client({
     GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildMessageReactions,
   ],
+  partials: [Partials.Message, Partials.Reaction, Partials.User],
 });
 
 client.commands = new Collection();
@@ -139,6 +140,64 @@ client.on('interactionCreate', async interaction => {
     } else {
       await interaction.reply(msg);
     }
+  }
+});
+
+// ── Flag reaction translator — works on ANY message ───────────────────────────
+const { FLAG_MAP } = require('./reactionTranslate');
+
+client.on('messageReactionAdd', async (reaction, user) => {
+  if (user.bot) return;
+  if (!FLAG_MAP[reaction.emoji.name]) return;
+
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) return;
+
+  try {
+    // Fetch partial data if needed
+    if (reaction.partial) await reaction.fetch();
+    if (reaction.message.partial) await reaction.message.fetch();
+
+    const text = reaction.message.content;
+    if (!text || text.trim().length === 0) return;
+
+    const lang = FLAG_MAP[reaction.emoji.name];
+    const channel = reaction.message.channel;
+
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 1000,
+        system: `You are a professional translator. Translate the given text accurately and naturally into ${lang.name}. Remove Discord markdown formatting but keep the structure. Return ONLY the translated text — no explanations, no preamble.`,
+        messages: [{ role: 'user', content: text }],
+      }),
+    });
+
+    const data = await res.json();
+    const translated = data.content?.[0]?.text?.trim();
+    if (!translated) return;
+
+    const reply = await channel.send({
+      content: [
+        `🌍 **${lang.name} Translation** *(deletes in 5 min)*`,
+        `────────────────────`,
+        translated,
+        `────────────────────`,
+        `⚔️ Duck War Survival`,
+      ].join('\n'),
+    });
+
+    // Auto delete after 5 minutes
+    setTimeout(() => reply.delete().catch(() => {}), 5 * 60 * 1000);
+
+  } catch (err) {
+    console.error('Flag reaction translate error:', err.message);
   }
 });
 
