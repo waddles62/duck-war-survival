@@ -147,8 +147,13 @@ client.on('interactionCreate', async interaction => {
 const { FLAG_MAP } = require('./reactionTranslate');
 
 client.on('messageReactionAdd', async (reaction, user) => {
+  console.log(`👀 Reaction detected: ${reaction.emoji.name} from ${user.tag}`);
   if (user.bot) return;
-  if (!FLAG_MAP[reaction.emoji.name]) return;
+  if (!FLAG_MAP[reaction.emoji.name]) {
+    console.log(`❌ Not a flag emoji: ${reaction.emoji.name}`);
+    return;
+  }
+  console.log(`🌍 Flag detected: ${reaction.emoji.name} — translating...`);
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return;
