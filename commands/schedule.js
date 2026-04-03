@@ -311,12 +311,10 @@ module.exports = {
           const officerCheck = checkOfficer(member, interaction.guildId);
           if (!officerCheck) return;
 
-          // Build plain text in-game mail version
+          // Build full in-game email version with daily reminders
           const tz      = config.timezone || 'UTC';
           const tzLabel = TIMEZONES.find(t => t.value === tz)?.name || tz;
           const sorted  = getSortedItems(items);
-
-          const mailLines = ['ALLIANCE EVENT SCHEDULE', '────────────────────'];
 
           // Group by day
           const byDay = {};
@@ -326,27 +324,55 @@ module.exports = {
             byDay[day].push(item);
           }
 
-          if (byDay[7]) {
-            mailLines.push('DAILY');
-            byDay[7].forEach(item => {
+          // Daily reminders and save lists per day
+          const DAY_REMINDERS = {
+            0: { // Sunday
+              today: 'REST DAY\n\nNo Alliance Duel today. Take a breather.',
+              save: 'SAVE FOR TOMORROW — MONDAY\nBuilding CP items\nTech CP items\nBuilding Speed Ups\nTech Speed Ups\nWisdom Medals\nSend gathering marches before reset\n\nTomorrow is Shelter Expansion Day.',
+            },
+            1: { // Monday
+              today: 'TODAY IS SHELTER EXPANSION DAY\n\nFocus: Building CP · Tech CP · Speedups · Wisdom Medals · Gathering\n\nPRIORITY TASKS\nUse Building CP items\nUse Tech CP items\nUse Building Speed Ups and Tech Speed Ups\nUse Wisdom Medals\nSend gathering marches\nCoins give double points vs other resources\nRadar collection does NOT count',
+              save: 'SAVE FOR TOMORROW — TUESDAY\nPrime Recruits\nOrange Hero Fragments\nExclusive Equipment Fragments\nDo NOT Star Rise until tomorrow\n\nTomorrow is Hero Initiative Day.',
+            },
+            2: { // Tuesday
+              today: 'TODAY IS HERO INITIATIVE DAY\n\nFocus: Hero Fragments · Prime Recruits · Radar Events\n\nPRIORITY TASKS\nComplete your Radar event FIRST\nUse Prime Recruit draws\nUse Orange Hero Fragments in Star Rise\nUse Exclusive Equipment Fragments\nOrange fragments give 4.5x more points than purple',
+              save: 'SAVE FOR TOMORROW — WEDNESDAY\nS Tier Syndicate Trucks\nOrange Shadow Calls missions\nPower Cores\nHero Equipment Lucky Chests\nTraining Speed Ups\n\nTomorrow is Keep Progressing Day.',
+            },
+            3: { // Wednesday
+              today: 'TODAY IS KEEP PROGRESSING DAY\n\nFocus: Troop Training · Speedups · Lucky Chests · Power Cores · Trucks · Shadow Calls\n\nPRIORITY TASKS\nUse S Tier Syndicate Trucks — 62,000 points!\nComplete Orange Shadow Calls — 31,000 points!\nOpen Hero Equipment Lucky Chests\nUse Power Cores\nUse Training Speed Ups',
+              save: 'SAVE FOR TOMORROW — THURSDAY\nGears\nTitanium Alloys\nDesign Blueprints\nSave Boomer rallies for tomorrow\nZOMBIE SIEGE at 18:00 tomorrow\n\nTomorrow is Arms Expert Day.',
+            },
+            4: { // Thursday
+              today: 'TODAY IS ARMS EXPERT DAY + ZOMBIE SIEGE\n\nFocus: Gears · Titanium Alloys · Blueprints · Radar · Boomers · Roamers\n\nPRIORITY TASKS\nComplete Radar event FIRST\nUse Gears, Titanium Alloys, Blueprints\nKill as many Roamers as possible\nJoin Boomer rallies — higher level = more points\n\nZOMBIE SIEGE AT 18:00\n25 waves · 30 minutes\nTurn OFF auto rally before it starts\nRequest alliance help between waves\nReinforce teammates after elimination',
+              save: 'SAVE FOR TOMORROW — FRIDAY\nPower Cores\nRemaining Hero Fragments\nWisdom Medals\nAll Speed Ups\nFRANKIE at 18:00 tomorrow\n\nTomorrow is Holistic Growth Day.',
+            },
+            5: { // Friday
+              today: 'TODAY IS HOLISTIC GROWTH DAY + FRANKIE\n\nFocus: Everything — Jackpot Day\n\nPRIORITY TASKS\nUse Gears, Titanium Alloys, Blueprints\nUse Power Cores\nUse Hero Fragments — all colours\nUse Wisdom Medals\nUse All Speed Ups\n\nFRANKIE AT 18:00\nRally Capacity 40,000+ = Rally Leader\nLead ONE rally with your best truck\nEveryone else — join with strongest rigs\nSend multiple full trucks if you have them',
+              save: 'SAVE FOR TOMORROW — SATURDAY\nS Tier Syndicate Trucks\nOrange Shadow Calls\nRemaining Speed Ups\n\nTomorrow is Enemy Buster Day.',
+            },
+            6: { // Saturday
+              today: 'TODAY IS ENEMY BUSTER DAY\n\nFocus: PvP Combat · Shadow Calls · Speed Ups\n\nPRIORITY TASKS\nComplete Orange Shadow Calls FIRST\n31,000 points each — top priority\nUse all remaining Speed Ups\nDefeat enemy troops for points\nPvP against rival alliances gives bonus points',
+              save: 'TOMORROW IS REST DAY\nCheck the Alliance Shop before it resets.\nMake sure your shield is active.\nGood work this week FBRD family.',
+            },
+          };
+
+          const SHORT_DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+          const tomorrow = (new Date().getDay() + 1) % 7;
+          const tomorrowName = SHORT_DAYS[tomorrow];
+          const mailLines = [`TOMORROW — ${tomorrowName.toUpperCase()}`, '────────────────────'];
+
+          if (byDay[tomorrow] && byDay[tomorrow].length > 0) {
+            byDay[tomorrow].forEach(item => {
               const time = formatTime(item.utcHour, item.utcMinute, tz);
-              mailLines.push(`${time}  ${item.name}${item.note ? ` - ${item.note}` : ''}`);
+              mailLines.push(`${time}  ${item.name}`);
             });
-            mailLines.push('');
+          } else {
+            mailLines.push('No events scheduled');
           }
 
-          for (let d = 0; d < 7; d++) {
-            if (!byDay[d]) continue;
-            mailLines.push(DAYS[d].toUpperCase());
-            byDay[d].forEach(item => {
-              const time = formatTime(item.utcHour, item.utcMinute, tz);
-              mailLines.push(`${time}  ${item.name}${item.note ? ` - ${item.note}` : ''}`);
-            });
-            mailLines.push('');
-          }
-
+          mailLines.push('');
           mailLines.push(`All times in ${tzLabel}`);
-          mailLines.push('— Duck War Survival');
+          mailLines.push('— Alliance Command');
 
           await user.send({
             content: `📋 **Schedule — In-Game Mail Version**\n\`\`\`\n${mailLines.join('\n')}\n\`\`\`\nCopy and paste this directly into your in-game alliance mail.`,
