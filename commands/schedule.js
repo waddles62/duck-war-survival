@@ -359,23 +359,19 @@ module.exports = {
           const SHORT_DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
           const tomorrow = (new Date().getDay() + 1) % 7;
           const tomorrowName = SHORT_DAYS[tomorrow];
-          const mailLines = [`TOMORROW — ${tomorrowName.toUpperCase()}`, '────────────────────'];
 
+          const eventLines = [];
           if (byDay[tomorrow] && byDay[tomorrow].length > 0) {
             byDay[tomorrow].forEach(item => {
               const time = formatTime(item.utcHour, item.utcMinute, tz);
-              mailLines.push(`${time}  ${item.name}`);
+              eventLines.push(`\`${time}\`  ${item.name}`);
             });
           } else {
-            mailLines.push('No events scheduled');
+            eventLines.push('No events scheduled');
           }
 
-          mailLines.push('');
-          mailLines.push(`All times in ${tzLabel}`);
-          mailLines.push('— Alliance Command');
-
           await user.send({
-            content: `📋 **Schedule — In-Game Mail Version**\n\`\`\`\n${mailLines.join('\n')}\n\`\`\`\nCopy and paste this directly into your in-game alliance mail.`,
+            content: `📋 **Copy for In-Game Announcement**\n\`\`\`\n<color=#FF4500><b>TOMORROW — ${tomorrowName.toUpperCase()}</b></color>\n${eventLines.join('\n')}\n\`\`\``,
           });
         } catch (err) {
           // DMs may be closed — silently ignore
