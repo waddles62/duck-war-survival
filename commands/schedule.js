@@ -31,7 +31,15 @@ const TIMEZONES = [
   { name: 'Australia East (AEST)',   value: 'Australia/Sydney' },
 ];
 
-const DAYS = ['Rest Day','Day 1 — Shelter Expansion','Day 2 — Hero Initiative','Day 3 — Keep Progressing','Day 4 — Arms Expert','Day 5 — Holistic Growth','Day 6 — Enemy Buster'];
+const DAYS = [
+  'Sunday - Rest Day',
+  'Monday - AD-SHELTER EXPANSION · Building CP · Tech CP · Building Speed Ups · Tech Speed Ups · Wisdom Medals · Gathering',
+  'Tuesday - AD-HERO INITIATIVE · Hero Fragments · Prime Recruits · Radar Events',
+  'Wednesday - AD-KEEP PROGRESSING · Troop Training · Training Speed Ups · Lucky Chests · Power Cores · S Tier Trucks · Orange Shadow Calls',
+  'Thursday - AD-ARMS EXPERT · Gears · Titanium Alloys · Design Blueprints · Radar Events · Kill Roamers · Rally Boomers',
+  'Friday - AD-HOLISTIC GROWTH · Gears · Titanium Alloys · Design Blueprints · Power Cores · Hero Fragments · Wisdom Medals · All Speed Ups',
+  'Saturday - AD-ENEMY BUSTER · S Tier Trucks · Orange Shadow Calls · All Speed Ups · Defeat Enemy Troops · Lose Troops',
+];
 const DAY_CHOICES = DAYS.map((d, i) => ({ name: d, value: String(i) }));
 
 // ── File helpers ──────────────────────────────────────────────────────────────
