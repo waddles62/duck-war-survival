@@ -40,7 +40,10 @@ const DAYS = [
   'Friday - AD-HOLISTIC GROWTH · Gears · Titanium Alloys · Design Blueprints · Power Cores · Hero Fragments · Wisdom Medals · All Speed Ups',
   'Saturday - AD-ENEMY BUSTER · S Tier Trucks · Orange Shadow Calls · All Speed Ups · Defeat Enemy Troops · Lose Troops',
 ];
-const DAY_CHOICES = DAYS.map((d, i) => ({ name: d, value: String(i) }));
+
+// Short names for Discord dropdown choices (max 100 chars)
+const DAY_CHOICE_NAMES = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const DAY_CHOICES = DAY_CHOICE_NAMES.map((d, i) => ({ name: d, value: String(i) }));
 
 // ── File helpers ──────────────────────────────────────────────────────────────
 
