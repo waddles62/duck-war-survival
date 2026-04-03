@@ -155,16 +155,19 @@ function buildScheduleEmbed(items, config, guildName) {
     lines.push('');
   }
 
-  // Per-day events
+  // Per-day events — always show all days
   for (let d = 0; d < 7; d++) {
-    if (!byDay[d]) continue;
     lines.push(`📆 **${DAYS[d]}**`);
-    byDay[d].forEach(item => {
-      const time = formatTime(item.utcHour, item.utcMinute, tz);
-      const durationTag = item.duration ? ` (${item.duration}m)` : '';
-      const announceTag = item.announceEnabled !== false ? ' 🔔' : '';
-      lines.push(`\`${time}\`  ${item.emoji || '🎯'}  **${item.name}**${item.note ? `  — ${item.note}` : ''}${durationTag}${announceTag}`);
-    });
+    if (!byDay[d]) {
+      lines.push(`*No events scheduled*`);
+    } else {
+      byDay[d].forEach(item => {
+        const time = formatTime(item.utcHour, item.utcMinute, tz);
+        const durationTag = item.duration ? ` (${item.duration}m)` : '';
+        const announceTag = item.announceEnabled !== false ? ' 🔔' : '';
+        lines.push(`\`${time}\`  ${item.emoji || '🎯'}  **${item.name}**${item.note ? `  — ${item.note}` : ''}${durationTag}${announceTag}`);
+      });
+    }
     lines.push('');
   }
 
