@@ -358,20 +358,32 @@ module.exports = {
 
           const SHORT_DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
           const tomorrow = (new Date().getDay() + 1) % 7;
+          const dayAfter = (new Date().getDay() + 2) % 7;
           const tomorrowName = SHORT_DAYS[tomorrow];
+          const dayAfterName = SHORT_DAYS[dayAfter];
 
-          const eventLines = [];
+          const tomorrowLines = [];
           if (byDay[tomorrow] && byDay[tomorrow].length > 0) {
             byDay[tomorrow].forEach(item => {
               const time = formatTime(item.utcHour, item.utcMinute, tz);
-              eventLines.push(`\`${time}\`  ${item.name}`);
+              tomorrowLines.push(`${time}  ${item.name}`);
             });
           } else {
-            eventLines.push('No events scheduled');
+            tomorrowLines.push('No events scheduled');
+          }
+
+          const dayAfterLines = [];
+          if (byDay[dayAfter] && byDay[dayAfter].length > 0) {
+            byDay[dayAfter].forEach(item => {
+              const time = formatTime(item.utcHour, item.utcMinute, tz);
+              dayAfterLines.push(`${time}  ${item.name}`);
+            });
+          } else {
+            dayAfterLines.push('No events scheduled');
           }
 
           await user.send({
-            content: `📋 **Copy for In-Game Announcement**\n\`\`\`\n<color=#FF4500><b>TOMORROW — ${tomorrowName.toUpperCase()}</b></color>\n${eventLines.join('\n')}\n\`\`\``,
+            content: `📋 **Copy for In-Game Announcement**\n\`\`\`\n<color=#FF4500><b>TOMORROW — ${tomorrowName.toUpperCase()}</b></color>\n${tomorrowLines.join('\n')}\n\n<color=#FF4500><b>${dayAfterName.toUpperCase()}</b></color>\n${dayAfterLines.join('\n')}\n\`\`\``,
           });
         } catch (err) {
           // DMs may be closed — silently ignore
