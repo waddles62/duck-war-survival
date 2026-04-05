@@ -383,7 +383,7 @@ module.exports = {
           }
 
           await user.send({
-            content: `📋 **Copy for In-Game Announcement**\n\`\`\`\n<color=#FF4500><b>TODAY — ${todayName.toUpperCase()}</b></color>\n${todayLines.join('\n')}\n\n<color=#FF4500><b>TOMORROW — ${tomorrowName.toUpperCase()}</b></color>\n${tomorrowLines.join('\n')}\n\`\`\``,
+            content: `\`\`\`\n<color=#FF4500><b>TODAY — ${todayName.toUpperCase()}</b></color>\n${todayLines.join('\n')}\n\n<color=#FF4500><b>TOMORROW — ${tomorrowName.toUpperCase()}</b></color>\n${tomorrowLines.join('\n')}\n\`\`\``,
           });
         } catch (err) {
           // DMs may be closed — silently ignore
